@@ -1,0 +1,31 @@
+dependencies:
+    pre:
+        - npm install -g npm@5.3.0
+    override:
+        - npm config set registry http://registry.npmjs.org/
+        - npm install -g gulp
+        - npm install
+        - npm install -g heroku-cli
+
+test:
+  override:
+    - echo 'test'
+
+compile:
+    override:
+        - gulp build
+
+deployment:
+    prod:
+        branch: master
+        commands:
+            - ./heroku_deploy.sh ray-backend:
+              timeout: 300
+    develop:
+        branch: develop
+        commands:
+            - ./heroku_deploy.sh ray-backend-dev:
+              timeout: 300
+
+
+
